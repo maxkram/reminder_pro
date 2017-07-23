@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
-import { addReminder, deleteReminder } from '../actions';
+import { addReminder, deleteReminder, clearReminders } from '../actions';
 import moment from 'moment';
 
 class App extends Component {
@@ -53,12 +53,12 @@ class App extends Component {
         return (
             <div className='App'>
                 <div className='title'>
-                    Reminder PRO
+                    Напоминалка
                 </div>
                 <div className='form-inline reminder-form'>
                     <div className='form-group'>
                         <input className='form-control'
-                        placeholder='I have to...'
+                        placeholder='Надо бы...'
                         onChange={event =>  this.setState({text: event.target.value})}
                         />
                     <input
@@ -74,10 +74,16 @@ class App extends Component {
                     onClick={() => this.addReminder()}
                     >
 
-                    Add Reminder
+                    Добавить
                     </button>
                 </div>
                 { this.renderReminder() }
+                <div
+                    className="btn btn-danger"
+                    onClick={() => this.props.clearReminders()}
+                >
+                    Очистить
+                </div>
             </div>
         )
     }
@@ -90,4 +96,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { addReminder, deleteReminder })(App);
+export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders })(App);
